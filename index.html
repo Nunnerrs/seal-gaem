@@ -5,18 +5,20 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="" rel="icon">
-        <link href="" rel="stylesheet">
-        <style>
-            body {
-                color: rgb(0, 0, 0);
-                font-family: 'Comic Sans MS', 'Chalkboard SE';
-                margin: auto;
-                text-align: center;
-            }
-        </style>
+        <link href="style.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Short+Stack" rel="stylesheet">
     </head>
     <body>
-        <h1>seal gaem</h1>
-        <p>yay</p>
+        <div id="area"></div>
+        <div id="customize">
+            <span style="font-weight: bold">customize</span>
+            <img id="model" src="assets/seal.png">
+            <div id="sliders">
+                <label for="hue">hue</label><input id="hue" max="365" min="0" type="range" value="0"><br>
+                <label for="sat">saturation</label><input id="sat" max="0" min="-100" type="range" value="0"><br>
+                <label for="bri">brightness</label><input id="bri" max="150" min="50" type="range" value="100">
+            </div>
+            <button id="create">CREATE SEAL</button>
+        </div>
     </body>
 </html>

@@ -1,0 +1,50 @@
+:root {
+    --silly: 'Short Stack', 'Chalkboard SE', 'Comic Sans MS', sans-serif;
+}
+body {
+    color: rgb(0, 0, 0);
+    font-family: var(--silly);
+    margin: auto;
+    overflow: hidden;
+    padding-top: 25px;
+    text-align: center;
+}
+button {
+    border: 0;
+    border-radius: 5px;
+    font-family: var(--silly);
+    padding: 10px;
+}
+button:hover {
+    cursor: pointer;
+    filter: brightness(95%);
+}
+input[type="range"] {
+    accent-color: #ff8989;
+    margin-left: 10px;
+}
+#create {
+    background-color: white;
+    margin: 25px auto auto;
+}
+#customize {
+    background: #ffd5d5;
+    bottom: -320px;
+    margin-top: 25px;
+    padding: 25px;
+    /* position: fixed; */
+    width: 100%;
+}
+#customize > * {
+    display: block;
+}
+#model {
+    margin: 25px auto;
+    width: 214px;
+    text-align: center;
+}
+#sliders {
+    margin: auto;
+    text-align: right;
+    width: max-content;
+}
