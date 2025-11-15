@@ -5,8 +5,7 @@ body {
     color: rgb(0, 0, 0);
     font-family: var(--silly);
     margin: auto;
-    overflow: hidden;
-    padding-top: 25px;
+    /* overflow: hidden; */
     text-align: center;
 }
 button {
@@ -23,16 +22,28 @@ input[type="range"] {
     accent-color: #ff8989;
     margin-left: 10px;
 }
+.seal {
+    left: 50%;
+    position: fixed;
+    top: 10%;
+}
+#area {
+    /* background: #fff; */
+    height: 100%;
+    padding-top: 25px;
+    width: 100%;
+}
 #create {
     background-color: white;
     margin: 25px auto auto;
+    text-transform: uppercase;
 }
 #customize {
     background: #ffd5d5;
     bottom: -320px;
     margin-top: 25px;
     padding: 25px;
-    /* position: fixed; */
+    position: fixed;
     width: 100%;
 }
 #customize > * {
@@ -47,4 +58,20 @@ input[type="range"] {
     margin: auto;
     text-align: right;
     width: max-content;
+}
+@keyframes openMenu {
+    from {
+        bottom: -320px;
+    }
+    to {
+        bottom: 0;
+    }
+}
+@keyframes closeMenu {
+    from {
+        bottom: 0;
+    }
+    to {
+        bottom: -320px;
+    }
 }

@@ -10,15 +10,15 @@
     </head>
     <body>
         <div id="area"></div>
-        <div id="customize">
+        <div id="customize" style="cursor: pointer">
             <span style="font-weight: bold">customize</span>
             <img id="model" src="assets/seal.png">
             <div id="sliders">
                 <label for="hue">hue</label><input id="hue" max="365" min="0" type="range" value="0"><br>
-                <label for="sat">saturation</label><input id="sat" max="0" min="-100" type="range" value="0"><br>
-                <label for="bri">brightness</label><input id="bri" max="150" min="50" type="range" value="100">
+                <label for="bri">brightness</label><input id="bri" max="150" min="50" type="range" value="100"><br>
+                <label for="sat">saturation</label><input id="sat" max="0" min="-100" type="range" value="0">
             </div>
-            <button id="create">CREATE SEAL</button>
+            <button id="create">Create seal</button>
         </div>
         <script src="script.js"></script>
     </body>
