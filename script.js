@@ -30,22 +30,26 @@ function toggleMenu(open) {
 customize.onclick = function(){toggleMenu(true)};
 
 function create(e, moving = true) {
-    let seal = document.createElement("img");
-    let file = "gif";
-    if (moving == false) {
-        file = "png";
-        seal.style.width = "100px";
-        //seal.style.width = "214px";
+    if (sealCount <= 100) {
+        let seal = document.createElement("img");
+        let file = "gif";
+        if (moving == false) {
+            file = "png";
+            seal.style.width = "100px";
+            //seal.style.width = "214px";
+        }
+        sealCount++;
+        seals.push({x: window.innerWidth / 2, y: window.innerHeight / 10, vx: 1, vy: 1, sx: 3, sy: 3});
+        seal.classList.add("seal");
+        seal.id = "seal" + sealCount;
+        seal.src = "assets/seal." + file;
+        seal.style.filter = model.style.filter;
+        setInterval(function(){move(seal)}, 50);
+        setInterval(function(){random(seal)}, 2000);
+        area.appendChild(seal);
+    } else {
+        alert("too many seal!!")
     }
-    sealCount++;
-    seals.push({x: window.innerWidth / 2, y: window.innerHeight / 10, vx: 1, vy: 1, sx: 3, sy: 3});
-    seal.classList.add("seal");
-    seal.id = "seal" + sealCount;
-    seal.src = "assets/seal." + file;
-    seal.style.filter = model.style.filter;
-    setInterval(function(){move(seal)}, 50);
-    setInterval(function(){random(seal)}, 2000);
-    area.appendChild(seal);
 }
 createBtn.onclick = create;
 
