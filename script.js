@@ -39,16 +39,17 @@ function create(e, moving = true) {
             //seal.style.width = "214px";
         }
         sealCount++;
-        seals.push({x: window.innerWidth / 2, y: window.innerHeight / 10, vx: 1, vy: 1, sx: 3, sy: 3});
+        seals.push({x: window.innerWidth / 4, y: window.innerHeight / 4, vx: 5, vy: 5}); // default is 3
         seal.classList.add("seal");
         seal.id = "seal" + sealCount;
         seal.src = "assets/seal." + file;
         seal.style.filter = model.style.filter;
         setInterval(function(){move(seal)}, 50);
         setInterval(function(){random(seal)}, 2000);
+        seal.oncontextmenu = function(){reset(seal)};
         area.appendChild(seal);
     } else {
-        alert("too many seal!!")
+        alert("too many seal!!");
     }
 }
 createBtn.onclick = create;
@@ -56,28 +57,41 @@ createBtn.onclick = create;
 function move(seal) {
     let id = seal.id.split("l")[1];
     let s = seals[id];
-    if (s.x + (seal.width / 2) <= 0 || s.x + (seal.width / 2) >= window.innerWidth) {
+    if (s.x >= window.innerWidth) {
+        s.vx = -10;
+    } else if (s.x + s.vx <= 0 || s.x + seal.width + s.vx >= window.innerWidth) {
         s.vx *= -1;
     }
-    if (s.y + (seal.height / 2) <= 0 || s.y + (seal.height / 2) >= window.innerHeight) {
+    if (s.y >= window.innerHeight) {
+        s.vy = -10;
+    } else if (s.y + s.vy <= 0 || s.y + seal.height + s.vy >= window.innerHeight) {
         s.vy *= -1;
     }
-    s.vx += s.sx;
-    if (s.sx < 0) {
+    if (s.vx < 0) {
         seal.style.transform = "scaleX(-1)";
     } else {
         seal.style.transform = "scaleX(1)";
     }
-    s.vy += s.sy;
-    seal.style.left = s.x + s.vx + "px";
-    seal.style.top = s.y + s.vy + "px";
+    s.x += s.vx;
+    s.y += s.vy;
+    seal.style.left = s.x + "px";
+    seal.style.top = s.y + "px";
 }
 
 function random(seal) {
     let id = seal.id.split("l")[1];
     let s = seals[id];
-    s.sx = Math.floor(Math.random() * 10) - 4;
-    s.sy = Math.floor(Math.random() * 10) - 4;
+    s.vx = Math.random() * 10 - 4;
+    s.vy = Math.random() * 10 - 4;
+}
+
+function reset(seal) {
+    let id = seal.id.split("l")[1];
+    let s = seals[id];
+    s.x = window.innerWidth / 4;
+    s.y = window.innerWidth / 4;
+    s.vx = 1;
+    s.vy = 1;
 }
 
 function design() {
