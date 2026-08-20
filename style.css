@@ -9,10 +9,13 @@ body {
     text-align: center;
 }
 button {
+    background-color: white;
     border: 0;
     border-radius: 5px;
+    color: black;
     font-family: var(--silly);
     padding: 10px;
+    text-transform: uppercase;
 }
 button:hover {
     cursor: pointer;
@@ -36,7 +39,6 @@ input[type="range"] {
 #create {
     background-color: white;
     margin: 25px auto auto;
-    text-transform: uppercase;
 }
 #customize {
     backdrop-filter: blur(5px);
@@ -46,6 +48,7 @@ input[type="range"] {
     padding: 25px;
     position: fixed;
     width: 100%;
+    z-index: 999;
 }
 #customize > * {
     display: block;

@@ -5,9 +5,11 @@ var customize = document.getElementById("customize");
     var hue = document.getElementById("hue");
     var bri = document.getElementById("bri");
     var sat = document.getElementById("sat");
+    var randomBtn = document.getElementById("randomize");
     var createBtn = document.getElementById("create");
 
 var sealCount = 0;
+// Stores seal speed and velocity
 var seals = [[]];
 
 function toggleMenu(open) {
@@ -39,13 +41,15 @@ function create(e, moving = true) {
             //seal.style.width = "214px";
         }
         sealCount++;
-        seals.push({x: window.innerWidth / 4, y: window.innerHeight / 4, vx: 5, vy: 5}); // default is 3
+        seals.push({x: window.innerWidth / 4, y: window.innerHeight / 4, vx: 5, vy: 5, moving: true}); // default is 3
         seal.classList.add("seal");
         seal.id = "seal" + sealCount;
         seal.src = "assets/seal." + file;
         seal.style.filter = model.style.filter;
         setInterval(function(){move(seal)}, 50);
-        setInterval(function(){random(seal)}, 2000);
+        setInterval(function(){speed(seal)}, 2000);
+        seal.onclick = function(){pat(seal)};
+        seal.oncontextmenu = function(){reset(seal)};
         seal.oncontextmenu = function(){reset(seal)};
         area.appendChild(seal);
     } else {
@@ -54,7 +58,9 @@ function create(e, moving = true) {
 }
 createBtn.onclick = create;
 
+// Moves seal, bounces off walls
 function move(seal) {
+    // ID is formatted as "seal#"
     let id = seal.id.split("l")[1];
     let s = seals[id];
     if (s.x >= window.innerWidth) {
@@ -67,24 +73,42 @@ function move(seal) {
     } else if (s.y + s.vy <= 0 || s.y + seal.height + s.vy >= window.innerHeight) {
         s.vy *= -1;
     }
-    if (s.vx < 0) {
-        seal.style.transform = "scaleX(-1)";
-    } else {
-        seal.style.transform = "scaleX(1)";
+    if (s.moving == true) {
+        if (s.vx < 0) {
+            seal.style.transform = "scaleX(-1)";
+        } else {
+            seal.style.transform = "scaleX(1)";
+        }
+        s.x += s.vx;
+        s.y += s.vy;
     }
-    s.x += s.vx;
-    s.y += s.vy;
     seal.style.left = s.x + "px";
     seal.style.top = s.y + "px";
+    if (Math.round(Math.random() * 10) == 0) {
+        seal.style.zIndex = Math.round(Math.random() * sealCount) - 1;
+    }
 }
 
-function random(seal) {
+// Randomizes speed
+function speed(seal) {
     let id = seal.id.split("l")[1];
     let s = seals[id];
     s.vx = Math.random() * 10 - 4;
     s.vy = Math.random() * 10 - 4;
 }
 
+function pat(seal) {
+    let id = seal.id.split("l")[1];
+    let s = seals[id];
+    s.moving = false;
+    s.vx = 0;
+    s.vy = 0;
+    setTimeout(function(){
+        s.moving = true;
+    }, 1000)
+}
+
+// Fixes seal on right-click
 function reset(seal) {
     let id = seal.id.split("l")[1];
     let s = seals[id];
@@ -94,9 +118,42 @@ function reset(seal) {
     s.vy = 1;
 }
 
+// Keyboard events
+function keyboard(e) {
+    switch (e.key) {
+        case "Backspace":
+            if (sealCount > 0) {
+                let c = confirm("are you sure you want to clear all seals? :c");
+                if (c == true) {
+                    sealCount = 0;
+                    seals = [[]];
+                    area.innerHTML = "";
+                }
+            }
+        break;
+        case "r":
+            random();
+        break;
+        case "Enter":
+            create();
+        break;
+    }
+}
+document.body.onkeydown = keyboard;
+
+// Sets display seal
 function design() {
     model.style.filter = "hue-rotate(" + hue.value + "deg) grayscale(" + -sat.value + "%) brightness(" + bri.value + "%)";
 }
 hue.oninput = design;
 bri.oninput = design;
 sat.oninput = design;
+
+// Randomizes seal design
+function random() {
+    hue.value = Math.round(Math.random() * 365);
+    bri.value = Math.round(Math.random() * 50) + 100;
+    sat.value = Math.round(Math.random() * 100) - 75;
+    design();
+}
+randomBtn.onclick = random;
